@@ -11,13 +11,13 @@ knitr::opts_chunk$set(
 library(tidyquant)
 library(sweep)
 library(forecast)
-library(timekit)
+library(timetk)
 # devtools::load_all() # Travis CI fails on load_all()
 
 ## ---- eval = F-----------------------------------------------------------
 #  library(forecast)
 #  library(tidyquant)
-#  library(timekit)
+#  library(timetk)
 #  library(sweep)
 
 ## ------------------------------------------------------------------------
@@ -140,7 +140,7 @@ models_tbl_fcast
 
 ## ------------------------------------------------------------------------
 models_tbl_fcast_tidy <- models_tbl_fcast %>%
-    mutate(sweep = map(fcast, sw_sweep, fitted = FALSE, timekit_idx = TRUE, rename_index = "date"))
+    mutate(sweep = map(fcast, sw_sweep, fitted = FALSE, timetk_idx = TRUE, rename_index = "date"))
 models_tbl_fcast_tidy
 
 ## ------------------------------------------------------------------------

@@ -10,14 +10,14 @@ knitr::opts_chunk$set(
 )
 library(tidyquant)
 library(sweep)
-library(timekit)
+library(timetk)
 library(forecast)
 # devtools::load_all() # Travis CI fails on load_all()
 
 ## ---- eval = F-----------------------------------------------------------
 #  library(forecast)
 #  library(tidyquant)
-#  library(timekit)
+#  library(timetk)
 #  library(sweep)
 
 ## ------------------------------------------------------------------------
@@ -80,7 +80,7 @@ monthly_qty_by_cat2_fit %>%
 
 ## ------------------------------------------------------------------------
 augment_fit_ets <- monthly_qty_by_cat2_fit %>%
-    mutate(augment = map(fit.ets, sw_augment, timekit_idx = TRUE, rename_index = "date")) %>%
+    mutate(augment = map(fit.ets, sw_augment, timetk_idx = TRUE, rename_index = "date")) %>%
     unnest(augment, .drop = TRUE)
 
 augment_fit_ets
@@ -99,7 +99,7 @@ augment_fit_ets %>%
 
 ## ------------------------------------------------------------------------
 monthly_qty_by_cat2_fit %>%
-    mutate(decomp = map(fit.ets, sw_tidy_decomp, timekit_idx = TRUE, rename_index = "date")) %>%
+    mutate(decomp = map(fit.ets, sw_tidy_decomp, timetk_idx = TRUE, rename_index = "date")) %>%
     unnest(decomp)
 
 ## ------------------------------------------------------------------------
@@ -109,7 +109,7 @@ monthly_qty_by_cat2_fcast
 
 ## ------------------------------------------------------------------------
 monthly_qty_by_cat2_fcast_tidy <- monthly_qty_by_cat2_fcast %>%
-    mutate(sweep = map(fcast.ets, sw_sweep, fitted = FALSE, timekit_idx = TRUE)) %>%
+    mutate(sweep = map(fcast.ets, sw_sweep, fitted = FALSE, timetk_idx = TRUE)) %>%
     unnest(sweep)
 monthly_qty_by_cat2_fcast_tidy
 

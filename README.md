@@ -15,7 +15,7 @@ Benefits
 -   **Designed for modeling and scaling forecasts using the the `tidyverse` tools in [*R for Data Science*](http://r4ds.had.co.nz/)**
 -   **Extends `broom` for model analysis (ARIMA, ETS, BATS, etc)**
 -   **Tidies the `forecast` objects for easy plotting and "tidy" data manipulation**
--   **Integrates `timekit` to enable dates and datetimes (irregular time series) in the tidied forecast output**
+-   **Integrates `timetk` to enable dates and datetimes (irregular time series) in the tidied forecast output**
 
 Tools
 -----
@@ -66,6 +66,7 @@ The compatibility chart is listed below.
 | arima       |      X     |       X      |       X       |                    |             |
 | Arima       |      X     |       X      |       X       |                    |             |
 | ets         |      X     |       X      |       X       |          X         |             |
+| robets      |      X     |       X      |       X       |          X         |             |
 | baggedETS   |            |              |               |                    |             |
 | bats        |      X     |       X      |       X       |          X         |             |
 | tbats       |      X     |       X      |       X       |          X         |             |

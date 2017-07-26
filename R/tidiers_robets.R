@@ -1,8 +1,8 @@
-#' Tidying methods for ETS (Error, Trend, Seasonal) exponential smoothing
+#' Tidying methods for robets (Robust Error, Trend, Seasonal) exponential smoothing
 #' modeling of time series
 #'
 #'
-#' @param x An object of class "ets"
+#' @param x An object of class "robets"
 #' @param data Used with `sw_augment` only.
 #' `NULL` by default which simply returns augmented columns only.
 #' User can supply the original data, which returns the data + augmented columns.
@@ -13,25 +13,25 @@
 #' @param ... Not used.
 #'
 #'
-#' @seealso [ets()]
+#' @seealso [robets::robets()]
 #'
 #' @examples
-#' library(forecast)
+#' library(robets)
 #' library(sweep)
 #'
-#' fit_ets <- WWWusage %>%
-#'     ets()
+#' fit_robets <- WWWusage %>%
+#'     robets()
 #'
-#' sw_tidy(fit_ets)
-#' sw_glance(fit_ets)
-#' sw_augment(fit_ets)
-#' sw_tidy_decomp(fit_ets)
+#' sw_tidy(fit_robets)
+#' sw_glance(fit_robets)
+#' sw_augment(fit_robets)
+#' sw_tidy_decomp(fit_robets)
 #'
-#' @name tidiers_ets
+#' @name tidiers_robets
 NULL
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_robets
 #'
 #'
 #' @return
@@ -43,7 +43,7 @@ NULL
 #'
 #'
 #' @export
-sw_tidy.ets <- function(x, ...) {
+sw_tidy.robets <- function(x, ...) {
 
     coefs <- stats::coef(x)
 
@@ -63,7 +63,7 @@ sw_tidy.ets <- function(x, ...) {
 }
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_robets
 #'
 #' @return
 #' __`sw_glance()`__ returns one row with the columns
@@ -83,7 +83,7 @@ sw_tidy.ets <- function(x, ...) {
 #' * `ACF1`: Autocorrelation of errors at lag 1
 #'
 #' @export
-sw_glance.ets <- function(x, ...) {
+sw_glance.robets <- function(x, ...) {
 
     # Model description
     ret_1 <- tibble::tibble(model.desc = x$method)
@@ -93,17 +93,17 @@ sw_glance.ets <- function(x, ...) {
     ret_2 <- broom::finish_glance(ret_2, x) %>%
         tibble::as_tibble()
 
-    # forecast accuracy
-    ret_3 <- tibble::as_tibble(forecast::accuracy(x))
+    # # forecast accuracy
+    # ret_3 <- tibble::as_tibble(forecast::accuracy(x))
 
-    ret <- dplyr::bind_cols(ret_1, ret_2, ret_3)
+    ret <- dplyr::bind_cols(ret_1, ret_2)
 
     return(ret)
 
 }
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_robets
 #'
 #' @return
 #' __`sw_augment()`__ returns a tibble with the following time series attributes:
@@ -114,7 +114,7 @@ sw_glance.ets <- function(x, ...) {
 #'   * `.resid`: The residual values from the model
 #'
 #' @export
-sw_augment.ets <- function(x, data = NULL, timetk_idx = FALSE, rename_index = "index", ...) {
+sw_augment.robets <- function(x, data = NULL, timetk_idx = FALSE, rename_index = "index", ...) {
 
     # Check timetk_idx
     if (timetk_idx) {
@@ -142,7 +142,7 @@ sw_augment.ets <- function(x, data = NULL, timetk_idx = FALSE, rename_index = "i
 
 }
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_robets
 #'
 #' @return
 #' __`sw_tidy_decomp()`__ returns a tibble with the following time series attributes:
@@ -154,7 +154,7 @@ sw_augment.ets <- function(x, data = NULL, timetk_idx = FALSE, rename_index = "i
 #'   * `season`: The seasonal component (Not always present)
 #'
 #' @export
-sw_tidy_decomp.ets <- function(x, timetk_idx = FALSE, rename_index = "index", ...) {
+sw_tidy_decomp.robets <- function(x, timetk_idx = FALSE, rename_index = "index", ...) {
 
     # Check timetk_idx
     if (timetk_idx) {

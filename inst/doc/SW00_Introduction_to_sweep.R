@@ -11,13 +11,13 @@ knitr::opts_chunk$set(
 library(tidyquant)
 library(sweep)
 library(forecast)
-library(timekit)
+library(timetk)
 # devtools::load_all() # Travis CI fails on load_all()
 
 ## ---- eval = F-----------------------------------------------------------
 #  library(forecast)
 #  library(tidyquant)
-#  library(timekit)
+#  library(timetk)
 #  library(sweep)
 
 ## ------------------------------------------------------------------------
@@ -42,7 +42,7 @@ alcohol_sales_ts <- tk_ts(alcohol_sales_tbl, start = 2007, freq = 12, silent = T
 alcohol_sales_ts
 
 ## ------------------------------------------------------------------------
-has_timekit_idx(alcohol_sales_ts)
+has_timetk_idx(alcohol_sales_ts)
 
 ## ------------------------------------------------------------------------
 fit_ets <- alcohol_sales_ts %>%
@@ -133,15 +133,15 @@ sw_sweep(fcast_ets) %>%
     theme_tq() 
 
 ## ------------------------------------------------------------------------
-sw_sweep(fcast_ets, timekit_idx = TRUE) %>%
+sw_sweep(fcast_ets, timetk_idx = TRUE) %>%
     head()
 
 ## ------------------------------------------------------------------------
-sw_sweep(fcast_ets, timekit_idx = TRUE) %>%
+sw_sweep(fcast_ets, timetk_idx = TRUE) %>%
     tail()
 
 ## ------------------------------------------------------------------------
-sw_sweep(fcast_ets, timekit_idx = TRUE) %>%
+sw_sweep(fcast_ets, timetk_idx = TRUE) %>%
     ggplot(aes(x = index, y = price, color = key)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
                 fill = "#D5DBFF", color = NA, size = 0) +
