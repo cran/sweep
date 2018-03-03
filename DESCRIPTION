@@ -1,8 +1,8 @@
 Package: sweep
 Type: Package
 Title: Tidy Tools for Forecasting
-Version: 0.2.0
-Date: 2017-07-25
+Version: 0.2.1
+Date: 2018-03-03
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -29,8 +29,8 @@ Suggests: forcats, knitr, rmarkdown, testthat, purrr, readr, robets,
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-07-26 01:27:18 UTC; mdanc
+Packaged: 2018-03-03 22:53:16 UTC; mdancho
 Author: Matt Dancho [aut, cre],
   Davis Vaughan [aut]
 Repository: CRAN
-Date/Publication: 2017-07-26 03:41:23 UTC
+Date/Publication: 2018-03-03 23:04:00 UTC
