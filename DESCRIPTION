@@ -1,13 +1,13 @@
 Package: sweep
 Type: Package
 Title: Tidy Tools for Forecasting
-Version: 0.2.1
+Version: 0.2.1.1
 Date: 2018-03-03
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
   )
-Maintainer: Matt Dancho <mdancho@business-science.io>
+Maintainer: ORPHANED
 Description: 
     Tidies up the forecasting modeling and prediction work flow, 
     extends the 'broom' package 
@@ -25,12 +25,15 @@ Imports: broom (>= 0.4.2), devtools (>= 1.12.0), dplyr (>= 0.7.0),
         forecast (>= 8.0), lazyeval (>= 0.2.0), lubridate (>= 1.6.0),
         tibble (>= 1.2), tidyr (>= 0.6.1), timetk (>= 0.1.0)
 Suggests: forcats, knitr, rmarkdown, testthat, purrr, readr, robets,
-        stringr, scales, tidyquant, tidyverse
+        stringr, scales, tidyquant, tidyverse, fracdiff
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2018-03-03 22:53:16 UTC; mdancho
+Packaged: 2018-08-19 08:39:17 UTC; hornik
 Author: Matt Dancho [aut, cre],
   Davis Vaughan [aut]
 Repository: CRAN
-Date/Publication: 2018-03-03 23:04:00 UTC
+Date/Publication: 2018-08-19 08:51:40 UTC
+X-CRAN-Original-Maintainer: Matt Dancho <mdancho@business-science.io>
+X-CRAN-Comment: Orphaned and corrected on 2018-08-19 as check problems
+        were not corrected despite reminders.

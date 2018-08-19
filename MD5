@@ -1,4 +1,4 @@
-ad552ef8f5000c4a25fdf3713ddf3ec8 *DESCRIPTION
+dbeae2e74736aa04c923b68da8db4ab9 *DESCRIPTION
 3146062cdb26f59f643abf6dbd7b5fd8 *NAMESPACE
 dd3b06778333bcf3040007fc035bac51 *NEWS.md
 1276c16d5d829fbd6a88d30130e8db68 *R/global_vars.R
@@ -22,7 +22,7 @@ eadf8f6415aa4eb0ff93292aa295844b *R/tidiers_ets.R
 d7aa4ad878c7f51deb1a20609a885a8b *R/utils-forecast.R
 b538332effa1a3ab7c2d25c4d3f2ff7d *README.md
 6a3b57254b92cd05ee06ab309b9110de *build/vignette.rds
-9bc4a7fa035dd0cde45ca2ce2a86265a *data/bike_sales.rda
+969b71257cc3b3e34e7d62d34a1af6bc *data/bike_sales.rda
 7c3aa7c919016c71dfe7dbc5358cecfc *inst/doc/SW00_Introduction_to_sweep.R
 ba140396fbaa619df73f6f12eed1cb57 *inst/doc/SW00_Introduction_to_sweep.Rmd
 cfa411064a446e661a26b9a2e78942bf *inst/doc/SW00_Introduction_to_sweep.html
