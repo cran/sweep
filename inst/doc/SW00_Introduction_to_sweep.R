@@ -8,17 +8,15 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(sweep)
-library(forecast)
-library(timetk)
+
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- eval = F-----------------------------------------------------------
-#  library(forecast)
-#  library(tidyquant)
-#  library(timetk)
-#  library(sweep)
+## ---- message = F--------------------------------------------------------
+library(tidyverse)
+library(tidyquant)
+library(timetk)
+library(sweep)
+library(forecast)
 
 ## ------------------------------------------------------------------------
 alcohol_sales_tbl <- tq_get("S4248SM144NCEN", 

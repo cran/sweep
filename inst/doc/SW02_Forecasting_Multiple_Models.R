@@ -8,17 +8,15 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(sweep)
-library(forecast)
-library(timetk)
+
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- eval = F-----------------------------------------------------------
-#  library(forecast)
-#  library(tidyquant)
-#  library(timetk)
-#  library(sweep)
+## ---- message = F--------------------------------------------------------
+library(tidyverse)
+library(tidyquant)
+library(timetk)
+library(sweep)
+library(forecast)
 
 ## ------------------------------------------------------------------------
 gas_prices_monthly_raw <- tq_get(
@@ -40,7 +38,6 @@ gas_prices_monthly <- gas_prices_monthly_raw %>%
 gas_prices_monthly %>%
     ggplot(aes(x = date, y = price)) +
     geom_line(color = palette_light()[[1]]) +
-    geom_point(color = palette_light()[[1]]) +
     labs(title = "Gasoline Prices, Monthly", x = "", y = "USD") +
     scale_y_continuous(labels = scales::dollar) +
     theme_tq()
@@ -54,7 +51,6 @@ gas_prices_quarterly
 gas_prices_quarterly %>%
     ggplot(aes(x = date, y = price)) +
     geom_line(color = palette_light()[[1]], size = 1) +
-    geom_point(color = palette_light()[[1]]) +
     labs(title = "Gasoline Prices, Quarterly", x = "", y = "USD") +
     scale_y_continuous(labels = scales::dollar) +
     scale_x_date(date_breaks = "5 years", date_labels = "%Y") +

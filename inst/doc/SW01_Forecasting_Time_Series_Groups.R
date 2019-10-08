@@ -8,17 +8,15 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(sweep)
-library(timetk)
-library(forecast)
+
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- eval = F-----------------------------------------------------------
-#  library(forecast)
-#  library(tidyquant)
-#  library(timetk)
-#  library(sweep)
+## ---- message = F--------------------------------------------------------
+library(tidyverse)
+library(tidyquant)
+library(timetk)
+library(sweep)
+library(forecast)
 
 ## ------------------------------------------------------------------------
 bike_sales
@@ -50,12 +48,12 @@ monthly_qty_by_cat2
 ## ------------------------------------------------------------------------
 monthly_qty_by_cat2_nest <- monthly_qty_by_cat2 %>%
     group_by(category.secondary) %>%
-    nest(.key = "data.tbl")
+    nest()
 monthly_qty_by_cat2_nest
 
 ## ------------------------------------------------------------------------
 monthly_qty_by_cat2_ts <- monthly_qty_by_cat2_nest %>%
-    mutate(data.ts = map(.x       = data.tbl, 
+    mutate(data.ts = map(.x       = data, 
                          .f       = tk_ts, 
                          select   = -order.month, 
                          start    = 2011,
@@ -70,18 +68,18 @@ monthly_qty_by_cat2_fit
 ## ------------------------------------------------------------------------
 monthly_qty_by_cat2_fit %>%
     mutate(tidy = map(fit.ets, sw_tidy)) %>%
-    unnest(tidy, .drop = TRUE) %>%
+    unnest(tidy) %>%
     spread(key = category.secondary, value = estimate)
 
 ## ------------------------------------------------------------------------
 monthly_qty_by_cat2_fit %>%
     mutate(glance = map(fit.ets, sw_glance)) %>%
-    unnest(glance, .drop = TRUE)
+    unnest(glance)
 
 ## ------------------------------------------------------------------------
 augment_fit_ets <- monthly_qty_by_cat2_fit %>%
     mutate(augment = map(fit.ets, sw_augment, timetk_idx = TRUE, rename_index = "date")) %>%
-    unnest(augment, .drop = TRUE)
+    unnest(augment)
 
 augment_fit_ets
 

@@ -15,8 +15,8 @@
 \method{sw_augment}{bats}(x, data = NULL, rename_index = "index",
   timetk_idx = FALSE, ...)
 
-\method{sw_tidy_decomp}{bats}(x, timetk_idx = FALSE, rename_index = "index",
-  ...)
+\method{sw_tidy_decomp}{bats}(x, timetk_idx = FALSE,
+  rename_index = "index", ...)
 }
 \arguments{
 \item{x}{An object of class "bats" or "tbats"}
@@ -82,6 +82,7 @@ a sequential index is created for plotting purposes
 Tidying methods for BATS and TBATS modeling of time series
 }
 \examples{
+library(dplyr)
 library(forecast)
 library(sweep)
 

@@ -16,8 +16,8 @@ modeling of time series}
 \method{sw_augment}{ets}(x, data = NULL, timetk_idx = FALSE,
   rename_index = "index", ...)
 
-\method{sw_tidy_decomp}{ets}(x, timetk_idx = FALSE, rename_index = "index",
-  ...)
+\method{sw_tidy_decomp}{ets}(x, timetk_idx = FALSE,
+  rename_index = "index", ...)
 }
 \arguments{
 \item{x}{An object of class "ets"}
@@ -85,6 +85,7 @@ Tidying methods for ETS (Error, Trend, Seasonal) exponential smoothing
 modeling of time series
 }
 \examples{
+library(dplyr)
 library(forecast)
 library(sweep)
 

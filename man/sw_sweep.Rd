@@ -4,8 +4,8 @@
 \alias{sw_sweep}
 \title{Tidy forecast objects}
 \usage{
-sw_sweep(x, fitted = FALSE, timetk_idx = FALSE, rename_index = "index",
-  ...)
+sw_sweep(x, fitted = FALSE, timetk_idx = FALSE,
+  rename_index = "index", ...)
 }
 \arguments{
 \item{x}{A time-series forecast of class \code{forecast}.}
@@ -53,6 +53,7 @@ The index column name can be changed using the \code{rename_index} argument.
 \examples{
 library(forecast)
 library(sweep)
+library(dplyr)
 
 # ETS forecasts
 USAccDeaths \%>\%
