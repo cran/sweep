@@ -72,8 +72,7 @@ to the `forecast` package workflow with the following functions:
   - `sw_tidy_decomp`: Returns seasonal decompositions
   - `sw_sweep`: Returns tidy forecast outputs.
 
-The compatibility chart is listed
-below.
+The compatibility chart is listed below.
 
 | Object      | sw\_tidy() | sw\_glance() | sw\_augment() | sw\_tidy\_decomp() | sw\_sweep() |
 | :---------- | :--------: | :----------: | :-----------: | :----------------: | :---------: |
@@ -124,7 +123,6 @@ speed quickly:
 
   - SW00 - Introduction to `sweep`
   - SW01 - Forecasting Time Series Groups in the tidyverse
-  - SW02 - Forecasting Using Multiple
-Models
+  - SW02 - Forecasting Using Multiple Models
 
 <!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->

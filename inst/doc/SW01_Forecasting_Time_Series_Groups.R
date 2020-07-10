@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE---------------------
+## ---- echo = FALSE, message = FALSE, warning = FALSE--------------------------
 knitr::opts_chunk$set(
     # message = FALSE,
     # warning = FALSE,
@@ -11,17 +11,17 @@ knitr::opts_chunk$set(
 
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- message = F--------------------------------------------------------
+## ---- message = F-------------------------------------------------------------
 library(tidyverse)
 library(tidyquant)
 library(timetk)
 library(sweep)
 library(forecast)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 bike_sales
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 bike_sales_monthly <- bike_sales %>%
     mutate(month = month(order.date, label = TRUE),
            year  = year(order.date)) %>%
@@ -29,7 +29,7 @@ bike_sales_monthly <- bike_sales %>%
     summarise(total.qty = sum(quantity)) 
 bike_sales_monthly
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 bike_sales_monthly %>%
     ggplot(aes(x = month, y = total.qty, group = year)) +
     geom_area(aes(fill = year), position = "stack") +
@@ -38,20 +38,20 @@ bike_sales_monthly %>%
     scale_y_continuous() +
     theme_tq()
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2 <- bike_sales %>%
     mutate(order.month = as_date(as.yearmon(order.date))) %>%
     group_by(category.secondary, order.month) %>%
     summarise(total.qty = sum(quantity))
 monthly_qty_by_cat2
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_nest <- monthly_qty_by_cat2 %>%
     group_by(category.secondary) %>%
     nest()
 monthly_qty_by_cat2_nest
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_ts <- monthly_qty_by_cat2_nest %>%
     mutate(data.ts = map(.x       = data, 
                          .f       = tk_ts, 
@@ -60,30 +60,30 @@ monthly_qty_by_cat2_ts <- monthly_qty_by_cat2_nest %>%
                          freq     = 12))
 monthly_qty_by_cat2_ts
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_fit <- monthly_qty_by_cat2_ts %>%
     mutate(fit.ets = map(data.ts, ets))
 monthly_qty_by_cat2_fit
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_fit %>%
     mutate(tidy = map(fit.ets, sw_tidy)) %>%
     unnest(tidy) %>%
     spread(key = category.secondary, value = estimate)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_fit %>%
     mutate(glance = map(fit.ets, sw_glance)) %>%
     unnest(glance)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 augment_fit_ets <- monthly_qty_by_cat2_fit %>%
     mutate(augment = map(fit.ets, sw_augment, timetk_idx = TRUE, rename_index = "date")) %>%
     unnest(augment)
 
 augment_fit_ets
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 augment_fit_ets %>%
     ggplot(aes(x = date, y = .resid, group = category.secondary)) +
     geom_hline(yintercept = 0, color = "grey40") +
@@ -95,23 +95,23 @@ augment_fit_ets %>%
     facet_wrap(~ category.secondary, scale = "free_y", ncol = 3) +
     scale_x_date(date_labels = "%Y")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_fit %>%
     mutate(decomp = map(fit.ets, sw_tidy_decomp, timetk_idx = TRUE, rename_index = "date")) %>%
     unnest(decomp)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_fcast <- monthly_qty_by_cat2_fit %>%
     mutate(fcast.ets = map(fit.ets, forecast, h = 12))
 monthly_qty_by_cat2_fcast
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 monthly_qty_by_cat2_fcast_tidy <- monthly_qty_by_cat2_fcast %>%
     mutate(sweep = map(fcast.ets, sw_sweep, fitted = FALSE, timetk_idx = TRUE)) %>%
     unnest(sweep)
 monthly_qty_by_cat2_fcast_tidy
 
-## ---- fig.height=7-------------------------------------------------------
+## ---- fig.height=7------------------------------------------------------------
 monthly_qty_by_cat2_fcast_tidy %>%
     ggplot(aes(x = index, y = total.qty, color = key, group = category.secondary)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
