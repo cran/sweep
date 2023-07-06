@@ -1,3 +1,11 @@
+# sweep 0.2.5
+
+- Fixes to get `sweep` back on CRAN following inadvertent `timetk` archival. 
+
+# sweep 0.2.4
+
+* Remove support for `robets`.
+
 # sweep 0.2.3
 
 * Fixes for compatability with `broom` v0.7.0
