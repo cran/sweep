@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE--------------------------
+## ----echo = FALSE, message = FALSE, warning = FALSE---------------------------
 knitr::opts_chunk$set(
     # message = FALSE,
     # warning = FALSE,
@@ -11,8 +11,8 @@ knitr::opts_chunk$set(
 
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- message = F-------------------------------------------------------------
-library(tidyverse)
+## ----message = F--------------------------------------------------------------
+library(ggplot2)
 library(tidyquant)
 library(timetk)
 library(sweep)
@@ -28,7 +28,7 @@ alcohol_sales_tbl
 ## -----------------------------------------------------------------------------
 alcohol_sales_tbl %>%
     ggplot(aes(x = date, y = price)) +
-    geom_line(size = 1, color = palette_light()[[1]]) +
+    geom_line(linewidth = 1, color = palette_light()[[1]]) +
     geom_smooth(method = "loess") +
     labs(title = "US Alcohol Sales: Monthly", x = "", y = "Millions") +
     scale_y_continuous(labels = scales::dollar) +
@@ -46,7 +46,7 @@ has_timetk_idx(alcohol_sales_ts)
 fit_ets <- alcohol_sales_ts %>%
     ets()
 
-## ---- echo = F----------------------------------------------------------------
+## ----echo = F-----------------------------------------------------------------
 tibble::tribble(
     ~Object,       ~`sw_tidy()`, ~`sw_glance()`, ~`sw_augment()`, ~`sw_tidy_decomp()`, ~`sw_sweep()`,
     "ar",          "",  "",  "", "",   "",
@@ -96,8 +96,8 @@ decomp_fit_ets
 
 ## -----------------------------------------------------------------------------
 decomp_fit_ets %>%
-    gather(key = key, value = value, -index) %>%
-    mutate(key = forcats::as_factor(key)) %>%
+    tidyr::gather(key = key, value = value, -index) %>%
+    dplyr::mutate(key = as.factor(key)) %>%
     ggplot(aes(x = index, y = value, group = key)) +
     geom_line(color = palette_light()[[2]]) +
     geom_ma(ma_fun = SMA, n = 12, size = 1) +
@@ -118,13 +118,13 @@ sw_sweep(fcast_ets, fitted = TRUE)
 sw_sweep(fcast_ets) %>%
     ggplot(aes(x = index, y = price, color = key)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
-                fill = "#D5DBFF", color = NA, size = 0) +
+                fill = "#D5DBFF", color = NA, linewidth = 0) +
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
-                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
-    geom_line(size = 1) +
+                fill = "#596DD5", color = NA, linewidth = 0, alpha = 0.8) +
+    geom_line(linewidth = 1) +
     labs(title = "US Alcohol Sales, ETS Model Forecast", x = "", y = "Millions",
          subtitle = "Regular Time Index") +
-    scale_y_continuous(labels = scales::dollar) +
+    scale_y_continuous(labels = scales::label_dollar()) +
     scale_x_yearmon(n = 12, format = "%Y") +
     scale_color_tq() +
     scale_fill_tq() +
@@ -142,10 +142,10 @@ sw_sweep(fcast_ets, timetk_idx = TRUE) %>%
 sw_sweep(fcast_ets, timetk_idx = TRUE) %>%
     ggplot(aes(x = index, y = price, color = key)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
-                fill = "#D5DBFF", color = NA, size = 0) +
+                fill = "#D5DBFF", color = NA, linewidth = 0) +
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
-                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
-    geom_line(size = 1) +
+                fill = "#596DD5", color = NA, linewidth = 0, alpha = 0.8) +
+    geom_line(linewidth = 1) +
     labs(title = "US Alcohol Sales, ETS Model Forecast", x = "", y = "Millions", 
          subtitle = "Irregular Time Index") +
     scale_y_continuous(labels = scales::dollar) +

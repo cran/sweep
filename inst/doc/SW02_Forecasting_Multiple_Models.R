@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE--------------------------
+## ----echo = FALSE, message = FALSE, warning = FALSE---------------------------
 knitr::opts_chunk$set(
     # message = FALSE,
     # warning = FALSE,
@@ -11,8 +11,12 @@ knitr::opts_chunk$set(
 
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- message = F-------------------------------------------------------------
-library(tidyverse)
+## ----message = F--------------------------------------------------------------
+library(tidyr)
+library(dplyr)
+library(purrr)
+library(lubridate)
+library(ggplot2)
 library(tidyquant)
 library(timetk)
 library(sweep)
@@ -50,9 +54,9 @@ gas_prices_quarterly
 ## -----------------------------------------------------------------------------
 gas_prices_quarterly %>%
     ggplot(aes(x = date, y = price)) +
-    geom_line(color = palette_light()[[1]], size = 1) +
+    geom_line(color = palette_light()[[1]], linewidth = 1) +
     labs(title = "Gasoline Prices, Quarterly", x = "", y = "USD") +
-    scale_y_continuous(labels = scales::dollar) +
+    scale_y_continuous(labels = scales::label_dollar()) +
     scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
     theme_tq()
 
@@ -71,6 +75,7 @@ df
 df$params
 
 ## -----------------------------------------------------------------------------
+# FIXME invoke_map is deprecated
 df_out <- df %>% 
     mutate(out = invoke_map(f, params))
 df_out
@@ -98,12 +103,12 @@ models_list <- list(
 )
 
 ## -----------------------------------------------------------------------------
-models_tbl <- enframe(models_list, name = "f", value = "params")
+models_tbl <- tibble::enframe(models_list, name = "f", value = "params")
 models_tbl
 
 ## -----------------------------------------------------------------------------
 models_tbl_fit <- models_tbl %>%
-    mutate(fit = invoke_map(f, params))
+    mutate(fit = purrr::invoke_map(f, params))
 models_tbl_fit
 
 ## -----------------------------------------------------------------------------
@@ -117,7 +122,7 @@ models_tbl_fit %>%
     mutate(glance = map(fit, sw_glance)) %>%
     unnest(glance, .drop = TRUE)
 
-## ---- warning=F, fig.height=8-------------------------------------------------
+## ----warning=F, fig.height=8--------------------------------------------------
 models_tbl_fit %>%
     mutate(augment = map(fit, sw_augment, rename_index = "date")) %>%
     unnest(augment) %>%
@@ -143,20 +148,20 @@ models_tbl_fcast_tidy
 models_tbl_fcast_tidy %>%
     unnest(sweep)
 
-## ---- fig.height=8------------------------------------------------------------
+## ----fig.height=8-------------------------------------------------------------
 models_tbl_fcast_tidy %>%
     unnest(sweep) %>%
     ggplot(aes(x = date, y = price, color = key, group = f)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
-                fill = "#D5DBFF", color = NA, size = 0) +
+                fill = "#D5DBFF", color = NA, linewidth = 0) +
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
-                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
-    geom_line(size = 1) +
+                fill = "#596DD5", color = NA, linewidth = 0, alpha = 0.8) +
+    geom_line(linewidth = 1) +
     facet_wrap(~f, nrow = 3) +
     labs(title = "Gasoline Price Forecasts",
          subtitle = "Forecasting multiple models with sweep: ARIMA, BATS, ETS",
          x = "", y = "Price") +
-    scale_y_continuous(labels = scales::dollar) +
+    scale_y_continuous(labels = scales::label_dollar()) +
     scale_x_date(date_breaks = "5 years", date_labels = "%Y") +
     theme_tq() +
     scale_color_tq()

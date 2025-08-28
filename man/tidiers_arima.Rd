@@ -81,7 +81,6 @@ series.
 \examples{
 library(dplyr)
 library(forecast)
-library(sweep)
 
 fit_arima <- WWWusage \%>\%
     auto.arima()
@@ -93,5 +92,5 @@ sw_augment(fit_arima)
 
 }
 \seealso{
-\code{\link[=arima]{arima()}}, \link[=arima]{Arima()}
+\code{\link[stats:arima]{stats::arima()}}
 }

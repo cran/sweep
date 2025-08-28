@@ -13,12 +13,11 @@
 #' Uses a irregular timetk index if present.
 #'
 #'
-#' @seealso [nnetar()]
+#' @seealso [forecast::nnetar()]
 #'
 #' @examples
 #' library(dplyr)
 #' library(forecast)
-#' library(sweep)
 #'
 #' fit_nnetar <- lynx %>%
 #'     nnetar()

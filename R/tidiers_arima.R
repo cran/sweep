@@ -13,12 +13,11 @@
 #' Uses a irregular timetk index if present.
 #'
 #'
-#' @seealso [arima()], [Arima()]
+#' @seealso [stats::arima()]
 #'
 #' @examples
 #' library(dplyr)
 #' library(forecast)
-#' library(sweep)
 #'
 #' fit_arima <- WWWusage %>%
 #'     auto.arima()

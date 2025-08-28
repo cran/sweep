@@ -82,7 +82,6 @@ series.
 \examples{
 library(dplyr)
 library(forecast)
-library(sweep)
 
 fit_hw <- USAccDeaths \%>\%
     stats::HoltWinters()
@@ -94,5 +93,5 @@ sw_tidy_decomp(fit_hw)
 
 }
 \seealso{
-\code{\link[=HoltWinters]{HoltWinters()}}
+\code{\link[stats:HoltWinters]{stats::HoltWinters()}}
 }

@@ -71,7 +71,6 @@ series.
 \examples{
 library(dplyr)
 library(forecast)
-library(sweep)
 
 fit_StructTS <- WWWusage \%>\%
     StructTS()
@@ -82,5 +81,5 @@ sw_augment(fit_StructTS)
 
 }
 \seealso{
-\code{\link[=StructTS]{StructTS()}}
+\code{\link[stats:StructTS]{stats::StructTS()}}
 }

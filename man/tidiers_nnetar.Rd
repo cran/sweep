@@ -71,7 +71,6 @@ series.
 \examples{
 library(dplyr)
 library(forecast)
-library(sweep)
 
 fit_nnetar <- lynx \%>\%
     nnetar()
@@ -82,5 +81,5 @@ sw_augment(fit_nnetar)
 
 }
 \seealso{
-\code{\link[=nnetar]{nnetar()}}
+\code{\link[forecast:nnetar]{forecast::nnetar()}}
 }

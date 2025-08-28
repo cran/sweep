@@ -85,7 +85,6 @@ modeling of time series
 \examples{
 library(dplyr)
 library(forecast)
-library(sweep)
 
 fit_ets <- WWWusage \%>\%
     ets()
@@ -97,5 +96,5 @@ sw_tidy_decomp(fit_ets)
 
 }
 \seealso{
-\code{\link[=ets]{ets()}}
+\code{\link[forecast:ets]{forecast::ets()}}
 }

@@ -12,12 +12,11 @@
 #' @param ... Additional parameters (not used)
 #'
 #'
-#' @seealso [bats()], [tbats()]
+#' @seealso [forecast::bats()], [forecast::tbats()]
 #'
 #' @examples
 #' library(dplyr)
 #' library(forecast)
-#' library(sweep)
 #'
 #' fit_bats <- WWWusage %>%
 #'     bats()

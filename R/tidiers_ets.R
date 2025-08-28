@@ -13,12 +13,11 @@
 #' @param ... Not used.
 #'
 #'
-#' @seealso [ets()]
+#' @seealso [forecast::ets()]
 #'
 #' @examples
 #' library(dplyr)
 #' library(forecast)
-#' library(sweep)
 #'
 #' fit_ets <- WWWusage %>%
 #'     ets()

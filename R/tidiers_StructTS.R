@@ -14,12 +14,11 @@
 #' Uses a irregular timetk index if present.
 #'
 #'
-#' @seealso [StructTS()]
+#' @seealso [stats::StructTS()]
 #'
 #' @examples
 #' library(dplyr)
 #' library(forecast)
-#' library(sweep)
 #'
 #' fit_StructTS <- WWWusage %>%
 #'     StructTS()

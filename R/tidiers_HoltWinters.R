@@ -14,12 +14,11 @@
 #' @param ... Additional parameters (not used)
 #'
 #'
-#' @seealso [HoltWinters()]
+#' @seealso [stats::HoltWinters()]
 #'
 #' @examples
 #' library(dplyr)
 #' library(forecast)
-#' library(sweep)
 #'
 #' fit_hw <- USAccDeaths %>%
 #'     stats::HoltWinters()

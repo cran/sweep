@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE--------------------------
+## ----echo = FALSE, message = FALSE, warning = FALSE---------------------------
 knitr::opts_chunk$set(
     # message = FALSE,
     # warning = FALSE,
@@ -11,8 +11,12 @@ knitr::opts_chunk$set(
 
 # devtools::load_all() # Travis CI fails on load_all()
 
-## ---- message = F-------------------------------------------------------------
-library(tidyverse)
+## ----message = F--------------------------------------------------------------
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(purrr)
+library(lubridate)
 library(tidyquant)
 library(timetk)
 library(sweep)
@@ -111,13 +115,13 @@ monthly_qty_by_cat2_fcast_tidy <- monthly_qty_by_cat2_fcast %>%
     unnest(sweep)
 monthly_qty_by_cat2_fcast_tidy
 
-## ---- fig.height=7------------------------------------------------------------
+## ----fig.height=7-------------------------------------------------------------
 monthly_qty_by_cat2_fcast_tidy %>%
     ggplot(aes(x = index, y = total.qty, color = key, group = category.secondary)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
-                fill = "#D5DBFF", color = NA, size = 0) +
+                fill = "#D5DBFF", color = NA, linewidth = 0) +
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
-                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
+                fill = "#596DD5", color = NA, linewidth = 0, alpha = 0.8) +
     geom_line() +
     labs(title = "Bike Quantity Sold By Secondary Category",
          subtitle = "ETS Model Forecasts",
